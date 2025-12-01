@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرحباً بك!</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .welcome-container {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .welcome-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+        }
+        
+        .welcome-message {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .user-info {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: inline-block;
+            margin: 20px 0;
+        }
+        
+        .btn-group {
+            margin-top: 40px;
+        }
+        
+        .success-badge {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container welcome-container">
+        <div class="welcome-icon">🎉</div>
+        
+        <h1 class="welcome-message" id="welcomeText">مرحباً!</h1>
+        
+        <div class="user-info">
+            <h2 id="userName">إيمن لوحيشي</h2>
+            <div class="success-badge">✅ تم تسجيل الدخول بنجاح</div>
+            <p id="loginTime">وقت الدخول: <span id="currentTime"></span></p>
+            <p id="sessionId">رقم الجلسة: <span id="sessionNumber"></span></p>
+        </div>
+        
+        <div class="btn-group">
+            <button onclick="goBack()" class="btn secondary">العودة للصفحة الرئيسية</button>
+            <button onclick="logout()" class="btn primary">تسجيل الخروج</button>
+        </div>
+    </div>
+
+    <script>
+        // استقبال البيانات من الصفحة الرئيسية
+        const urlParams = new URLSearchParams(window.location.search);
+        const userName = urlParams.get('name');
+        
+        if (userName) {
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('welcomeText').textContent = `مرحباً ${userName}!`;
+            
+            // عرض الوقت الحالي
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleString('ar-EG');
+            
+            // إنشاء رقم جلسة عشوائي
+            const sessionId = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('sessionNumber').textContent = sessionId;
+        } else {
+            // إذا لم توجد بيانات، العودة للصفحة الرئيسية
+            window.location.href = '/';
+        }
+        
+        function goBack() {
+            window.location.href = '/';
+        }
+        
+        function logout() {
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
